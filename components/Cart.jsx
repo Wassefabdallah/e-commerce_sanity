@@ -35,7 +35,7 @@ const Cart = () => {
                 onClick={() => setShowCart(false)}
                 className="btn"
               >
-                Continue sss
+                Continue ssssss
               </button>
             </Link>
           </div>
