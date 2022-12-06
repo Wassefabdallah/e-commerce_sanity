@@ -8,7 +8,27 @@ import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../Lib/client';
 import getStripe from '../Lib/getStripe';
 
+import emailjs from '@emailjs/browser';
+
 const Cart = () => {
+
+  //confirmaion email send Onclick using emailJS
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_zoyw17r', 'template_3wjsadk', form.current, 'bZf67GKjYC3x7uuCp')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
+
+
+
+
   const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
 
@@ -97,11 +117,12 @@ const Cart = () => {
               <h3>Subtotal:</h3>
               <h3>${totalPrice}</h3>
             </div>
-            <div className="btn-container">
-              <button type="button" className="btn" onClick={handleCheckout}>
+            <form ref={form} onSubmit={sendEmail}  >
+              
+              <button  type="submit" className="btn" onClick={() => {handleCheckout()}}>
                 Pay with Stripe
               </button>
-            </div>
+            </form>
           </div>
         )}
       </div>
